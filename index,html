@@ -1,0 +1,103 @@
+	<html>
+		<head>
+			<title>Optimale Bestellmenge</title>
+			<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+			<script>
+
+				// Funktion anlegen (2 Punkte)
+				function analyse() {
+				// Variablen deklarieren (4 Punkte)
+				var vBestellkostenProBestellung;
+				var vLagerkostenProDrucker;
+				var vJaehrlicheBestellmenge;
+				var vOptBestellanzahlProJahr;
+				var vBestellanzahl;
+				var vBestellmenge;
+				var vBestellkosten;
+				var vLagerkosten;
+				var vGesamtkosten;
+				var vAusgabe;
+				// Eingabe
+				// Variablen mit der HTML-Inputboxen (IDs) verbinden (6 Punkte)
+
+				vBestellkostenProBestellung = document.getElementById("bestellkostenProBestellung").value;
+				vLagerkostenProDrucker = document.getElementById("lagerkostenProDrucker").value;
+				vJaehrlicheBestellmenge = document.getElementById("jaehrlicheBestellmenge").value;
+
+				// Verarbeitung
+				//Berechnung inklusive Formel (4 Punkte)
+				
+				vOptBestellanzahlProJahr = Math.sqrt(vJaehrlicheBestellmenge * vLagerkostenProDrucker / vBestellkostenProBestellung);
+
+				// Ausgabe der optimalen Bestellmenge (2 Punkte)
+
+				document.getElementById("optBestellanzahlProJahr").value = vOptBestellanzahlProJahr;
+
+
+				// Tabellenüberschriften anlegen (4 Punkte)
+				vAusgabe = "";
+				vAusgabe = vAusgabe + "<table border=1>";
+				vAusgabe = vAusgabe + "<tr>";
+				vAusgabe = vAusgabe + "<th>Bestellanzahl</th>";
+				vAusgabe = vAusgabe + "<th>Bestellmenge</th>";
+				vAusgabe = vAusgabe + "<th>Bestellkosten</th>";
+				vAusgabe = vAusgabe + "<th>Lagerkosten</th>";
+				vAusgabe = vAusgabe + "<th>Gesamtkosten</th>";
+				vAusgabe = vAusgabe + "</tr>";
+
+				vBestellanzahl = 1;
+				// Schleife programmieren mit der korrekten Berechnung (20 Punkte)
+				while (vBestellanzahl <= 12) {
+
+				vBestellmenge = vJaehrlicheBestellmenge / vBestellanzahl;
+				vBestellkosten = vBestellkostenProBestellung * vBestellanzahl;
+				vLagerkosten = vLagerkostenProDrucker * vBestellmenge;
+				vGesamtkosten = vBestellkosten + vLagerkosten;
+				
+				// Verzweigung anlegen (10 Punkte)
+						
+						if(vOptBestellanzahlProJahr==vBestellanzahl){
+							vAusgabe = vAusgabe + "<tr style=background-color:green;color:white><td>"
+							vAusgabe = vAusgabe + vBestellanzahl.toFixed(0) + "</td><td>" 
+							vAusgabe = vAusgabe + vBestellmenge.toFixed(0)+ "</td><td>" 
+							vAusgabe = vAusgabe + vBestellkosten.toFixed(2) + " €" + "</td><td>" 
+							vAusgabe = vAusgabe + vLagerkosten.toFixed(2) + " €" +"</td><td>" 
+							vAusgabe = vAusgabe + vGesamtkosten.toFixed(2) + " €" + "</td></tr>"
+											
+						}
+						else {
+
+							// Ausgabe (2 Punkte)
+								vAusgabe = vAusgabe + "<tr><td>" 
+								vAusgabe = vAusgabe + vBestellanzahl.toFixed(2) + "</td><td>"
+								vAusgabe = vAusgabe + vBestellmenge.toFixed(2)+ "</td><td>"
+								vAusgabe = vAusgabe + vBestellkosten.toFixed(2) + " €"+ "</td><td>" 
+								vAusgabe = vAusgabe + vLagerkosten.toFixed(2) + " €" + "</td><td>" 
+								vAusgabe = vAusgabe + vGesamtkosten.toFixed(2) + " €" + "</td></tr>"
+							}
+							// Inkrement und Ausgabe (1 Punkt)
+								vBestellanzahl = vBestellanzahl + 1;
+											
+									
+							}
+								vAusgabe = vAusgabe + "</table>";
+								document.getElementById("idAusgabe").innerHTML = vAusgabe;
+				}
+				
+</script>
+</head>
+
+<body style="background-color: beige">
+	<img src="Infoteam-Logo.jpg" width="500" height="150" alt="">
+	<h1 style="color:#886A08">Optimale Bestellmenge</h1>
+	<!-- Anlegen Inputboxen (3 Punkte)-->
+	Bestellkosten pro Bestellung: <input id="bestellkostenProBestellung" type="text" value="40.00" size="5"> €<br>
+	Durchschnittliche Lagerkosten pro Drucker: <input id="lagerkostenProDrucker" type="text" value="0.30" size="5"> €<br>
+	Jährliche Bestellmenge: <input id="jaehrlicheBestellmenge" type="text" value="1200" size="5"> Drucker<br><br>
+	<!-- Anlegen Button mit Funktion (1 Punkt)-->
+	<button onClick="analyse();">Analyse der Bestellmenge</button><br><br>
+	Optimale Bestellanzahl pro Jahr: <input id="optBestellanzahlProJahr" type="text" value="" size="5"> Bestellungen<br><br>
+	<!-- Anlegen div-Tag (1 Punkte)-->
+	<div id="idAusgabe"></div>
+	</body>
+</html>
